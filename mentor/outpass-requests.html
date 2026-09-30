@@ -1,0 +1,2083 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Outpass Requests - Mentor</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        body {
+            background-color: #f4f7fb;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar-custom {
+            background-color: #12355b;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: white !important;
+        }
+
+        .page-container {
+            max-width: 1100px;
+            margin: 35px auto;
+        }
+
+        .page-header {
+            background-color: white;
+            padding: 25px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .page-title {
+            color: #12355b;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .page-subtitle {
+            color: #777;
+            margin-bottom: 0;
+        }
+
+        .mentor-info {
+            background-color: #eef5ff;
+            border: 1px solid #cfe2ff;
+            border-radius: 12px;
+            padding: 15px 18px;
+            margin-top: 18px;
+        }
+
+        .request-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .request-heading {
+            color: #12355b;
+            font-weight: bold;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-approved {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .status-info {
+            background-color: #cff4fc;
+            color: #055160;
+        }
+
+        .details-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e6ea;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .detail-label {
+            color: #777;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            color: #333;
+            font-weight: bold;
+            word-break: break-word;
+        }
+
+        .parent-approval-box {
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 20px;
+        }
+
+        .parent-waiting {
+            background-color: #fff8e1;
+            border: 1px solid #ffe69c;
+            color: #664d03;
+        }
+
+        .parent-approved {
+            background-color: #eefaf3;
+            border: 1px solid #badbcc;
+            color: #198754;
+        }
+
+        .action-box {
+            border-top: 1px solid #e5e5e5;
+            margin-top: 25px;
+            padding-top: 20px;
+        }
+
+        .approve-btn {
+            min-width: 120px;
+        }
+
+        .reject-btn {
+            min-width: 120px;
+        }
+
+        .info-box {
+            background-color: #fff8e1;
+            border: 1px solid #ffe69c;
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 20px;
+            color: #664d03;
+        }
+
+        .loading-state {
+            text-align: center;
+            padding: 60px;
+            color: #777;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #777;
+        }
+
+        .empty-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .modal-header {
+            background-color: #12355b;
+            color: white;
+        }
+
+        .modal-header .btn-close {
+            filter: invert(1);
+        }
+
+        @media (max-width: 768px) {
+
+            .page-container {
+                margin: 20px 10px;
+            }
+
+            .navbar .container-fluid {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar navbar-custom">
+
+    <div class="container-fluid">
+
+        <a
+            class="navbar-brand"
+            href="dashboard.html"
+        >
+            SMART OUTPASS
+        </a>
+
+        <div>
+
+            <a
+                class="nav-link d-inline-block me-3"
+                href="dashboard.html"
+            >
+                Dashboard
+            </a>
+
+            <a
+                class="nav-link d-inline-block me-3"
+                href="outpass-requests.html"
+            >
+                Requests
+            </a>
+
+            <a
+                class="nav-link d-inline-block me-3"
+                href="history.html"
+            >
+                History
+            </a>
+
+            <a
+                class="nav-link d-inline-block"
+                href="#"
+                id="logoutLink"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="container page-container">
+
+
+    <div class="page-header">
+
+        <h2 class="page-title">
+            Outpass Requests
+        </h2>
+
+        <p class="page-subtitle">
+            Review outpass requests submitted by students in your department.
+        </p>
+
+
+        <div class="mentor-info">
+
+            <div class="row g-2">
+
+                <div class="col-md-4">
+
+                    <div class="detail-label">
+                        Mentor
+                    </div>
+
+                    <div
+                        class="detail-value"
+                        id="mentorName"
+                    >
+                        Loading...
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="detail-label">
+                        Employee ID
+                    </div>
+
+                    <div
+                        class="detail-value"
+                        id="mentorEmployeeId"
+                    >
+                        Loading...
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="detail-label">
+                        Department
+                    </div>
+
+                    <div
+                        class="detail-value"
+                        id="mentorDepartment"
+                    >
+                        Loading...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div id="requestsContainer">
+
+        <div class="loading-state">
+
+            <div class="spinner-border text-primary mb-3"></div>
+
+            <p>
+                Loading outpass requests...
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="request-card">
+
+        <div class="info-box">
+
+            <h5>
+                <i class="bi bi-info-circle me-2"></i>
+                Mentor Review Workflow
+            </h5>
+
+            <p class="mb-2">
+                Requests from your department are shown here after
+                the student submits them. Mentor approval is enabled
+                only after parent OTP approval.
+            </p>
+
+            <strong>
+                Current workflow:
+            </strong>
+
+            <p class="mt-2 mb-0">
+
+                Student applies
+                →
+                Parent OTP Approval
+                →
+                Mentor Review
+                →
+                Mentor Approves / Rejects
+                →
+                Security
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     APPROVE MODAL
+===================================================== -->
+
+<div
+    class="modal fade"
+    id="approveModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    Approve Outpass
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <p>
+                    Are you sure you want to approve this outpass?
+                </p>
+
+                <p class="text-muted mb-0">
+                    After approval, the request will be available
+                    to the Security module.
+                </p>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-success"
+                    id="confirmApproveButton"
+                >
+                    Confirm Approval
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     REJECT MODAL
+===================================================== -->
+
+<div
+    class="modal fade"
+    id="rejectModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    Reject Outpass
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <label
+                    for="rejectionReason"
+                    class="form-label"
+                >
+                    Reason for Rejection
+                </label>
+
+                <textarea
+                    id="rejectionReason"
+                    class="form-control"
+                    rows="4"
+                    maxlength="500"
+                    placeholder="Enter reason for rejecting this outpass..."
+                ></textarea>
+
+                <div
+                    id="rejectionError"
+                    class="text-danger mt-2"
+                    style="display:none;"
+                >
+                    Please enter a rejection reason.
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    id="confirmRejectButton"
+                >
+                    Confirm Rejection
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+></script>
+
+
+<script>
+
+const API_URL = "http://127.0.0.1:5000";
+
+const requestsContainer =
+    document.getElementById("requestsContainer");
+
+const token =
+    localStorage.getItem("smart_outpass_token");
+
+const storedUser =
+    localStorage.getItem("smart_outpass_user");
+
+let currentUser = null;
+
+let selectedOutpassId = null;
+
+
+const approveModal =
+    new bootstrap.Modal(
+        document.getElementById("approveModal")
+    );
+
+
+const rejectModal =
+    new bootstrap.Modal(
+        document.getElementById("rejectModal")
+    );
+
+
+/* =========================================================
+   AUTHENTICATION
+========================================================= */
+
+function logout() {
+
+    localStorage.removeItem("smart_outpass_token");
+
+    localStorage.removeItem("smart_outpass_user");
+
+    window.location.href = "../index.html";
+
+}
+
+
+if (!token || !storedUser) {
+
+    logout();
+
+}
+
+
+try {
+
+    currentUser =
+        JSON.parse(storedUser);
+
+}
+catch (error) {
+
+    console.error(
+        "Invalid stored mentor information:",
+        error
+    );
+
+    logout();
+
+}
+
+
+if (
+    currentUser &&
+    currentUser.role &&
+    String(currentUser.role).toLowerCase() !== "mentor"
+) {
+
+    logout();
+
+}
+
+
+/* =========================================================
+   DISPLAY MENTOR INFORMATION
+========================================================= */
+
+function displayMentorInfo() {
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    const mentorName =
+        currentUser.name ||
+        currentUser.username ||
+        "Mentor";
+
+
+    const employeeId =
+        currentUser.employee_id ||
+        currentUser.employeeId ||
+        currentUser.username ||
+        "-";
+
+
+    const department =
+        currentUser.department ||
+        currentUser.dept ||
+        "-";
+
+
+    document.getElementById(
+        "mentorName"
+    ).textContent = mentorName;
+
+
+    document.getElementById(
+        "mentorEmployeeId"
+    ).textContent = employeeId;
+
+
+    document.getElementById(
+        "mentorDepartment"
+    ).textContent = department;
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    if (
+        value === undefined ||
+        value === null
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   FORMAT DATE
+========================================================= */
+
+function formatDate(value) {
+
+    if (!value) {
+        return "-";
+    }
+
+
+    const text =
+        String(value).substring(0, 10);
+
+
+    const parts =
+        text.split("-");
+
+
+    if (parts.length !== 3) {
+
+        return escapeHTML(value);
+
+    }
+
+
+    const year =
+        Number(parts[0]);
+
+    const month =
+        Number(parts[1]);
+
+    const day =
+        Number(parts[2]);
+
+
+    if (
+        !year ||
+        !month ||
+        !day
+    ) {
+
+        return escapeHTML(value);
+
+    }
+
+
+    const date =
+        new Date(
+            year,
+            month - 1,
+            day
+        );
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   FORMAT TIME
+========================================================= */
+
+function formatTime(value) {
+
+    if (!value) {
+        return "-";
+    }
+
+
+    const text =
+        String(value);
+
+
+    const match =
+        text.match(/^(\d{1,3}):(\d{2})/);
+
+
+    if (!match) {
+
+        return escapeHTML(value);
+
+    }
+
+
+    let hour =
+        Number(match[1]);
+
+
+    const minute =
+        match[2];
+
+
+    const period =
+        hour >= 12 ? "PM" : "AM";
+
+
+    hour =
+        hour % 12;
+
+
+    if (hour === 0) {
+        hour = 12;
+    }
+
+
+    return `${hour}:${minute} ${period}`;
+
+}
+
+
+/* =========================================================
+   FORMAT DATE TIME
+========================================================= */
+
+function formatDateTime(value) {
+
+    if (!value) {
+        return "-";
+    }
+
+
+    const text =
+        String(value);
+
+
+    if (text.includes(" ")) {
+
+        const parts =
+            text.split(" ");
+
+
+        return (
+            formatDate(parts[0]) +
+            " " +
+            formatTime(parts[1])
+        );
+
+    }
+
+
+    return formatDate(text);
+
+}
+
+
+/* =========================================================
+   GET MENTOR DEPARTMENT
+========================================================= */
+
+function getMentorDepartment() {
+
+    return String(
+        currentUser?.department ||
+        currentUser?.dept ||
+        ""
+    )
+    .trim()
+    .toLowerCase();
+
+}
+
+
+/* =========================================================
+   LOAD REQUESTS
+========================================================= */
+
+async function loadRequests() {
+
+    try {
+
+        requestsContainer.innerHTML = `
+
+            <div class="loading-state">
+
+                <div class="spinner-border text-primary mb-3"></div>
+
+                <p>
+                    Loading outpass requests...
+                </p>
+
+            </div>
+
+        `;
+
+
+        if (!token) {
+
+            logout();
+
+            return;
+
+        }
+
+
+        const response =
+            await fetch(
+                API_URL + "/api/outpasses",
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Authorization":
+                            "Bearer " + token,
+
+                        "Content-Type":
+                            "application/json"
+                    }
+                }
+            );
+
+
+        let result;
+
+
+        try {
+
+            result =
+                await response.json();
+
+        }
+        catch (error) {
+
+            throw new Error(
+                "Invalid response received from server."
+            );
+
+        }
+
+
+        if (response.status === 401) {
+
+            logout();
+
+            return;
+
+        }
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result?.message ||
+                result?.error ||
+                "Unable to load requests."
+            );
+
+        }
+
+
+        const allRequests =
+            Array.isArray(result)
+                ? result
+                : Array.isArray(result.requests)
+                    ? result.requests
+                    : Array.isArray(result.outpasses)
+                        ? result.outpasses
+                        : Array.isArray(result.data)
+                            ? result.data
+                            : [];
+
+
+        const mentorDepartment =
+            getMentorDepartment();
+
+
+        let departmentRequests =
+            allRequests;
+
+
+        if (mentorDepartment) {
+
+            departmentRequests =
+                allRequests.filter(
+                    function(request) {
+
+                        return String(
+                            request.department || ""
+                        )
+                        .trim()
+                        .toLowerCase() ===
+                        mentorDepartment;
+
+                    }
+                );
+
+        }
+
+
+        /*
+         * IMPORTANT FIX
+         *
+         * Previously the page used:
+         *
+         * parent_status === "approved"
+         * &&
+         * mentor_status === "pending"
+         *
+         * That caused newly submitted requests to disappear
+         * from the mentor page.
+         *
+         * Now every department request whose mentor status
+         * is Pending is displayed.
+         *
+         * If parent approval is pending, the buttons are locked.
+         * If parent approval is completed, the buttons are enabled.
+         */
+
+        const mentorRequests =
+            departmentRequests.filter(
+                function(request) {
+
+                    const mentorStatus =
+                        String(
+                            request.mentor_status || ""
+                        )
+                        .trim()
+                        .toLowerCase();
+
+
+                    return mentorStatus === "pending";
+
+                }
+            );
+
+
+        displayRequests(
+            mentorRequests
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Load requests error:",
+            error
+        );
+
+
+        requestsContainer.innerHTML = `
+
+            <div class="alert alert-danger">
+
+                <strong>
+
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+
+                    Unable to load requests.
+
+                </strong>
+
+                <br>
+                <br>
+
+                ${escapeHTML(error.message)}
+
+                <hr>
+
+                Make sure Flask is running on:
+
+                <strong>
+                    http://127.0.0.1:5000
+                </strong>
+
+                <br>
+                <br>
+
+                <button
+                    class="btn btn-danger btn-sm"
+                    onclick="loadRequests()"
+                >
+
+                    <i class="bi bi-arrow-clockwise me-1"></i>
+
+                    Try Again
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   DISPLAY REQUESTS
+========================================================= */
+
+function displayRequests(requests) {
+
+    requestsContainer.innerHTML = "";
+
+
+    if (
+        !Array.isArray(requests) ||
+        requests.length === 0
+    ) {
+
+        requestsContainer.innerHTML = `
+
+            <div class="request-card">
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+
+                        <i class="bi bi-clipboard-check"></i>
+
+                    </div>
+
+                    <h5>
+                        No Pending Mentor Requests
+                    </h5>
+
+                    <p>
+                        There are currently no outpasses
+                        waiting for your review.
+                    </p>
+
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    requests.sort(
+        function(a, b) {
+
+            const dateA =
+                new Date(
+                    String(
+                        a.submitted_at || ""
+                    ).replace(" ", "T")
+                );
+
+
+            const dateB =
+                new Date(
+                    String(
+                        b.submitted_at || ""
+                    ).replace(" ", "T")
+                );
+
+
+            return dateB - dateA;
+
+        }
+    );
+
+
+    requests.forEach(
+        function(request) {
+
+            const card =
+                document.createElement("div");
+
+
+            card.className =
+                "request-card";
+
+
+            const outpassId =
+                request.outpass_id || "-";
+
+
+            const studentName =
+                request.student_name || "-";
+
+
+            const rollNumber =
+                request.roll_number || "-";
+
+
+            const department =
+                request.department || "-";
+
+
+            const year =
+                request.year || "-";
+
+
+            const destination =
+                request.destination || "-";
+
+
+            const reason =
+                request.reason || "-";
+
+
+            const parentStatus =
+                String(
+                    request.parent_status ||
+                    "Pending"
+                )
+                .trim()
+                .toLowerCase();
+
+
+            const parentApproved =
+                parentStatus === "approved";
+
+
+            const submittedDate =
+                formatDateTime(
+                    request.submitted_at
+                );
+
+
+            const parentApprovedAt =
+                formatDateTime(
+                    request.parent_approved_at
+                );
+
+
+            const outpassDate =
+                formatDate(
+                    request.outpass_date
+                );
+
+
+            const exitTime =
+                formatTime(
+                    request.exit_time
+                );
+
+
+            const returnDate =
+                formatDate(
+                    request.return_date
+                );
+
+
+            const parentBoxClass =
+                parentApproved
+                    ? "parent-approved"
+                    : "parent-waiting";
+
+
+            const parentContent =
+                parentApproved
+                    ? `
+
+                        <p class="mb-2">
+
+                            Parent approval has been
+                            completed through OTP verification.
+
+                        </p>
+
+                        <div class="fw-bold">
+
+                            <i class="bi bi-check-circle me-1"></i>
+
+                            Parent Approved — OTP Verified
+
+                        </div>
+
+                        <small class="text-muted">
+
+                            Parent approval time:
+                            ${parentApprovedAt}
+
+                        </small>
+
+                      `
+                    : `
+
+                        <p class="mb-2">
+
+                            Parent approval is still pending.
+
+                        </p>
+
+                        <div class="fw-bold">
+
+                            <i class="bi bi-hourglass-split me-1"></i>
+
+                            Waiting for Parent OTP Approval
+
+                        </div>
+
+                        <small class="text-muted">
+
+                            Mentor approval will become
+                            available after the parent
+                            verifies the OTP.
+
+                        </small>
+
+                      `;
+
+
+            const actionContent =
+                parentApproved
+                    ? `
+
+                        <h5>
+                            Mentor Decision
+                        </h5>
+
+                        <p class="text-muted">
+
+                            Parent approval is complete.
+                            You can now approve or reject
+                            this request.
+
+                        </p>
+
+
+                        <button
+                            type="button"
+                            class="btn btn-success approve-btn me-2"
+                            onclick="openApproveModal('${escapeHTML(outpassId)}')"
+                        >
+
+                            <i class="bi bi-check-lg me-1"></i>
+
+                            Approve
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="btn btn-danger reject-btn"
+                            onclick="openRejectModal('${escapeHTML(outpassId)}')"
+                        >
+
+                            <i class="bi bi-x-lg me-1"></i>
+
+                            Reject
+
+                        </button>
+
+                      `
+                    : `
+
+                        <h5>
+                            Mentor Decision
+                        </h5>
+
+                        <p class="text-muted mb-2">
+
+                            You can review the request,
+                            but mentor approval is locked
+                            until parent OTP approval.
+
+                        </p>
+
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary approve-btn me-2"
+                            disabled
+                        >
+
+                            <i class="bi bi-lock me-1"></i>
+
+                            Approve
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary reject-btn"
+                            disabled
+                        >
+
+                            <i class="bi bi-lock me-1"></i>
+
+                            Reject
+
+                        </button>
+
+                      `;
+
+
+            const statusText =
+                parentApproved
+                    ? "Ready for Mentor Review"
+                    : "Waiting for Parent Approval";
+
+
+            const statusClass =
+                parentApproved
+                    ? "status-info"
+                    : "status-pending";
+
+
+            card.innerHTML = `
+
+                <!-- REQUEST HEADER -->
+
+                <div class="row align-items-center">
+
+                    <div class="col-md-8">
+
+                        <h4 class="request-heading">
+
+                            Outpass
+                            ${escapeHTML(outpassId)}
+
+                        </h4>
+
+                        <small class="text-muted">
+
+                            Submitted:
+                            ${submittedDate}
+
+                        </small>
+
+                    </div>
+
+
+                    <div
+                        class="col-md-4 text-md-end mt-3 mt-md-0"
+                    >
+
+                        <span
+                            class="status-badge ${statusClass}"
+                        >
+
+                            ${statusText}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DETAILS -->
+
+                <div class="details-box">
+
+                    <h5 class="mb-4">
+
+                        Student & Outpass Details
+
+                    </h5>
+
+
+                    <div class="row g-4">
+
+
+                        <div class="col-md-4">
+
+                            <div class="detail-label">
+                                Student Name
+                            </div>
+
+                            <div class="detail-value">
+
+                                ${escapeHTML(studentName)}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <div class="detail-label">
+                                Roll Number
+                            </div>
+
+                            <div class="detail-value">
+
+                                ${escapeHTML(rollNumber)}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <div class="detail-label">
+                                Department
+                            </div>
+
+                            <div class="detail-value">
+
+                                ${escapeHTML(department)}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <div class="detail-label">
+                                Year
+                            </div>
+
+                            <div class="detail-value">
+
+                                ${escapeHTML(year)}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <div class="detail-label">
+                                Destination
+                            </div>
+
+                            <div class="detail-value">
+
+                                ${escapeHTML(destination)}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <div class="detail-label">
+                                Outpass Date
+                            </div>
+
+                            <div class="detail-value">
+
+                                ${outpassDate}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <div class="detail-label">
+                                Exit Time
+                            </div>
+
+                            <div class="detail-value">
+
+                                ${exitTime}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <div class="detail-label">
+                                Return Date
+                            </div>
+
+                            <div class="detail-value">
+
+                                ${returnDate}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <div class="detail-label">
+                                Reason
+                            </div>
+
+                            <div class="detail-value">
+
+                                ${escapeHTML(reason)}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PARENT APPROVAL -->
+
+                <div
+                    class="parent-approval-box ${parentBoxClass}"
+                >
+
+                    <h5>
+
+                        <i class="bi bi-people me-2"></i>
+
+                        Parent Approval
+
+                    </h5>
+
+                    ${parentContent}
+
+                </div>
+
+
+                <!-- MENTOR ACTIONS -->
+
+                <div class="action-box">
+
+                    ${actionContent}
+
+                </div>
+
+            `;
+
+
+            requestsContainer.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   OPEN APPROVE MODAL
+========================================================= */
+
+function openApproveModal(outpassId) {
+
+    if (!outpassId) {
+        return;
+    }
+
+
+    selectedOutpassId =
+        outpassId;
+
+
+    approveModal.show();
+
+}
+
+
+/* =========================================================
+   OPEN REJECT MODAL
+========================================================= */
+
+function openRejectModal(outpassId) {
+
+    if (!outpassId) {
+        return;
+    }
+
+
+    selectedOutpassId =
+        outpassId;
+
+
+    document.getElementById(
+        "rejectionReason"
+    ).value = "";
+
+
+    document.getElementById(
+        "rejectionError"
+    ).textContent =
+        "Please enter a rejection reason.";
+
+
+    document.getElementById(
+        "rejectionError"
+    ).style.display =
+        "none";
+
+
+    rejectModal.show();
+
+}
+
+
+/* =========================================================
+   CONFIRM APPROVAL
+========================================================= */
+
+document.getElementById(
+    "confirmApproveButton"
+).addEventListener(
+    "click",
+    async function() {
+
+        if (!selectedOutpassId) {
+            return;
+        }
+
+
+        const button =
+            this;
+
+
+        const approvingOutpassId =
+            selectedOutpassId;
+
+
+        button.disabled =
+            true;
+
+
+        button.innerHTML =
+            '<span class="spinner-border spinner-border-sm me-2"></span>Approving...';
+
+
+        try {
+
+            const response =
+                await fetch(
+                    API_URL +
+                    "/api/outpasses/" +
+                    encodeURIComponent(
+                        approvingOutpassId
+                    ) +
+                    "/mentor-approve",
+                    {
+                        method: "POST",
+
+                        headers: {
+
+                            "Authorization":
+                                "Bearer " + token,
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body: JSON.stringify({})
+
+                    }
+                );
+
+
+            let result;
+
+
+            try {
+
+                result =
+                    await response.json();
+
+            }
+            catch (error) {
+
+                throw new Error(
+                    "Invalid response from server."
+                );
+
+            }
+
+
+            if (response.status === 401) {
+
+                logout();
+
+                return;
+
+            }
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result?.message ||
+                    result?.error ||
+                    "Approval failed."
+                );
+
+            }
+
+
+            approveModal.hide();
+
+
+            alert(
+                "Outpass " +
+                approvingOutpassId +
+                " has been approved successfully."
+            );
+
+
+            selectedOutpassId =
+                null;
+
+
+            await loadRequests();
+
+        }
+        catch (error) {
+
+            console.error(
+                "Approval error:",
+                error
+            );
+
+
+            alert(
+                error.message ||
+                "Unable to approve outpass."
+            );
+
+        }
+        finally {
+
+            button.disabled =
+                false;
+
+
+            button.innerHTML =
+                "Confirm Approval";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CONFIRM REJECTION
+========================================================= */
+
+document.getElementById(
+    "confirmRejectButton"
+).addEventListener(
+    "click",
+    async function() {
+
+        if (!selectedOutpassId) {
+            return;
+        }
+
+
+        const reason =
+            document.getElementById(
+                "rejectionReason"
+            ).value.trim();
+
+
+        const errorBox =
+            document.getElementById(
+                "rejectionError"
+            );
+
+
+        if (reason === "") {
+
+            errorBox.textContent =
+                "Please enter a rejection reason.";
+
+            errorBox.style.display =
+                "block";
+
+            return;
+
+        }
+
+
+        if (reason.length > 500) {
+
+            errorBox.textContent =
+                "Rejection reason must be 500 characters or less.";
+
+            errorBox.style.display =
+                "block";
+
+            return;
+
+        }
+
+
+        errorBox.style.display =
+            "none";
+
+
+        const button =
+            this;
+
+
+        const rejectingOutpassId =
+            selectedOutpassId;
+
+
+        button.disabled =
+            true;
+
+
+        button.innerHTML =
+            '<span class="spinner-border spinner-border-sm me-2"></span>Rejecting...';
+
+
+        try {
+
+            const response =
+                await fetch(
+                    API_URL +
+                    "/api/outpasses/" +
+                    encodeURIComponent(
+                        rejectingOutpassId
+                    ) +
+                    "/mentor-reject",
+                    {
+                        method: "POST",
+
+                        headers: {
+
+                            "Authorization":
+                                "Bearer " + token,
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body: JSON.stringify({
+                            reason: reason
+                        })
+
+                    }
+                );
+
+
+            let result;
+
+
+            try {
+
+                result =
+                    await response.json();
+
+            }
+            catch (error) {
+
+                throw new Error(
+                    "Invalid response from server."
+                );
+
+            }
+
+
+            if (response.status === 401) {
+
+                logout();
+
+                return;
+
+            }
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result?.message ||
+                    result?.error ||
+                    "Rejection failed."
+                );
+
+            }
+
+
+            rejectModal.hide();
+
+
+            alert(
+                "Outpass " +
+                rejectingOutpassId +
+                " has been rejected."
+            );
+
+
+            selectedOutpassId =
+                null;
+
+
+            await loadRequests();
+
+        }
+        catch (error) {
+
+            console.error(
+                "Rejection error:",
+                error
+            );
+
+
+            alert(
+                error.message ||
+                "Unable to reject outpass."
+            );
+
+        }
+        finally {
+
+            button.disabled =
+                false;
+
+
+            button.innerHTML =
+                "Confirm Rejection";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+document.getElementById(
+    "logoutLink"
+).addEventListener(
+    "click",
+    function(event) {
+
+        event.preventDefault();
+
+        logout();
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+displayMentorInfo();
+
+loadRequests();
+
+</script>
+
+
+</body>
+
+</html>

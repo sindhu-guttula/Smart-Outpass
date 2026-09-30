@@ -1,0 +1,1041 @@
+# `admin/users.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Users - Smart Outpass</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        body {
+            background-color: #f4f7fb;
+            font-family: Arial, sans-serif;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar-custom {
+            background-color: #12355b;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: white !important;
+        }
+
+        .nav-link:hover {
+            opacity: 0.8;
+        }
+
+        /* ================= MAIN ================= */
+
+        .page-container {
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        /* ================= HEADER ================= */
+
+        .page-header {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        .page-title {
+            color: #12355b;
+            font-weight: bold;
+        }
+
+        .page-subtitle {
+            color: #777;
+            margin-bottom: 0;
+        }
+
+        /* ================= STAT CARDS ================= */
+
+        .stat-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            height: 100%;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #12355b;
+        }
+
+        .stat-label {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-top: 25px;
+        }
+
+        .table th {
+            background-color: #12355b;
+            color: white;
+            white-space: nowrap;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+
+        /* ================= BADGES ================= */
+
+        .role-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .student-badge {
+            background-color: #cff4fc;
+            color: #055160;
+        }
+
+        .parent-badge {
+            background-color: #e2e3e5;
+            color: #41464b;
+        }
+
+        .mentor-badge {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .security-badge {
+            background-color: #fff3cd;
+            color: #664d03;
+        }
+
+        .active-badge {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .inactive-badge {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+
+        /* ================= SEARCH ================= */
+
+        .search-area {
+            margin-bottom: 20px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 768px) {
+
+            .page-container {
+                margin: 20px 10px;
+            }
+
+            .table-card {
+                overflow-x: auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar navbar-custom">
+
+    <div class="container-fluid">
+
+        <a
+            class="navbar-brand"
+            href="dashboard.html"
+        >
+            SMART OUTPASS
+        </a>
+
+
+        <div>
+
+            <a
+                class="nav-link d-inline-block me-3"
+                href="dashboard.html"
+            >
+                Dashboard
+            </a>
+
+            <a
+                class="nav-link d-inline-block me-3"
+                href="users.html"
+            >
+                Users
+            </a>
+
+            <a
+                class="nav-link d-inline-block me-3"
+                href="outpasses.html"
+            >
+                Outpasses
+            </a>
+
+            <a
+                class="nav-link d-inline-block"
+                href="../index.html"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="container page-container">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <div class="page-header">
+
+        <h2 class="page-title">
+            User Management
+        </h2>
+
+        <p class="page-subtitle">
+            Manage students, parents, mentors and security staff.
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         STATISTICS
+    ================================================== -->
+
+    <div class="row g-4">
+
+
+        <div class="col-md-3">
+
+            <div class="stat-card">
+
+                <div class="stat-number">
+                    250
+                </div>
+
+                <div class="stat-label">
+                    Total Students
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="stat-card">
+
+                <div class="stat-number">
+                    245
+                </div>
+
+                <div class="stat-label">
+                    Total Parents
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="stat-card">
+
+                <div class="stat-number">
+                    25
+                </div>
+
+                <div class="stat-label">
+                    Total Mentors
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="stat-card">
+
+                <div class="stat-number">
+                    12
+                </div>
+
+                <div class="stat-label">
+                    Security Staff
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         USER TABLE
+    ================================================== -->
+
+    <div class="table-card">
+
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h5 class="mb-0">
+                Registered Users
+            </h5>
+
+            <button
+                type="button"
+                class="btn btn-primary"
+                onclick="showDemoMessage()"
+            >
+                + Add User
+            </button>
+
+        </div>
+
+
+
+        <!-- SEARCH -->
+
+        <div class="search-area">
+
+            <label
+                for="searchInput"
+                class="form-label fw-bold"
+            >
+                Search User
+            </label>
+
+
+            <input
+                type="text"
+                id="searchInput"
+                class="form-control"
+                placeholder="Search by name, ID, email or mobile number..."
+                onkeyup="searchUsers()"
+            >
+
+        </div>
+
+
+
+        <!-- ROLE FILTER -->
+
+        <div class="mb-4">
+
+            <label
+                for="roleFilter"
+                class="form-label fw-bold"
+            >
+                Filter by Role
+            </label>
+
+
+            <select
+                id="roleFilter"
+                class="form-select"
+                onchange="filterUsers()"
+            >
+
+                <option value="all">
+                    All Users
+                </option>
+
+                <option value="Student">
+                    Students
+                </option>
+
+                <option value="Parent">
+                    Parents
+                </option>
+
+                <option value="Mentor">
+                    Mentors
+                </option>
+
+                <option value="Security">
+                    Security Staff
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- TABLE -->
+
+        <div class="table-responsive">
+
+            <table
+                class="table table-bordered table-hover"
+                id="userTable"
+            >
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            User ID
+                        </th>
+
+                        <th>
+                            Name
+                        </th>
+
+                        <th>
+                            Role
+                        </th>
+
+                        <th>
+                            Email
+                        </th>
+
+                        <th>
+                            Mobile Number
+                        </th>
+
+                        <th>
+                            Student ID
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    <!-- =================================================
+                         STUDENT
+                    ================================================== -->
+
+                    <tr>
+
+                        <td>
+                            STU001
+                        </td>
+
+                        <td>
+                            Student Name
+                        </td>
+
+                        <td>
+
+                            <span class="role-badge student-badge">
+                                Student
+                            </span>
+
+                        </td>
+
+                        <td>
+                            student@example.com
+                        </td>
+
+                        <td>
+                            9876543210
+                        </td>
+
+                        <td>
+                            STU001
+                        </td>
+
+                        <td>
+
+                            <span class="role-badge active-badge">
+                                Active
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="btn btn-sm btn-outline-primary"
+                                onclick="viewUser('STU001')"
+                            >
+                                View
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- =================================================
+                         PARENT
+                    ================================================== -->
+
+                    <tr>
+
+                        <td>
+                            PAR001
+                        </td>
+
+                        <td>
+                            Parent Name
+                        </td>
+
+                        <td>
+
+                            <span class="role-badge parent-badge">
+                                Parent
+                            </span>
+
+                        </td>
+
+                        <td>
+                            parent@example.com
+                        </td>
+
+                        <td>
+                            9876543211
+                        </td>
+
+                        <td>
+                            STU001
+                        </td>
+
+                        <td>
+
+                            <span class="role-badge active-badge">
+                                Active
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="btn btn-sm btn-outline-primary"
+                                onclick="viewUser('PAR001')"
+                            >
+                                View
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- =================================================
+                         MENTOR
+                    ================================================== -->
+
+                    <tr>
+
+                        <td>
+                            MEN001
+                        </td>
+
+                        <td>
+                            Mentor Name
+                        </td>
+
+                        <td>
+
+                            <span class="role-badge mentor-badge">
+                                Mentor
+                            </span>
+
+                        </td>
+
+                        <td>
+                            mentor@example.com
+                        </td>
+
+                        <td>
+                            9876543212
+                        </td>
+
+                        <td>
+                            -
+                        </td>
+
+                        <td>
+
+                            <span class="role-badge active-badge">
+                                Active
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="btn btn-sm btn-outline-primary"
+                                onclick="viewUser('MEN001')"
+                            >
+                                View
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- =================================================
+                         SECURITY
+                    ================================================== -->
+
+                    <tr>
+
+                        <td>
+                            SEC001
+                        </td>
+
+                        <td>
+                            Security Staff
+                        </td>
+
+                        <td>
+
+                            <span class="role-badge security-badge">
+                                Security
+                            </span>
+
+                        </td>
+
+                        <td>
+                            security@example.com
+                        </td>
+
+                        <td>
+                            9876543213
+                        </td>
+
+                        <td>
+                            -
+                        </td>
+
+                        <td>
+
+                            <span class="role-badge active-badge">
+                                Active
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="btn btn-sm btn-outline-primary"
+                                onclick="viewUser('SEC001')"
+                            >
+                                View
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- =================================================
+                         SECOND STUDENT
+                    ================================================== -->
+
+                    <tr>
+
+                        <td>
+                            STU002
+                        </td>
+
+                        <td>
+                            Student Two
+                        </td>
+
+                        <td>
+
+                            <span class="role-badge student-badge">
+                                Student
+                            </span>
+
+                        </td>
+
+                        <td>
+                            student2@example.com
+                        </td>
+
+                        <td>
+                            9876543214
+                        </td>
+
+                        <td>
+                            STU002
+                        </td>
+
+                        <td>
+
+                            <span class="role-badge active-badge">
+                                Active
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="btn btn-sm btn-outline-primary"
+                                onclick="viewUser('STU002')"
+                            >
+                                View
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- =================================================
+                         SECOND PARENT
+                    ================================================== -->
+
+                    <tr>
+
+                        <td>
+                            PAR002
+                        </td>
+
+                        <td>
+                            Parent Two
+                        </td>
+
+                        <td>
+
+                            <span class="role-badge parent-badge">
+                                Parent
+                            </span>
+
+                        </td>
+
+                        <td>
+                            parent2@example.com
+                        </td>
+
+                        <td>
+                            9876543215
+                        </td>
+
+                        <td>
+                            STU002
+                        </td>
+
+                        <td>
+
+                            <span class="role-badge active-badge">
+                                Active
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="btn btn-sm btn-outline-primary"
+                                onclick="viewUser('PAR002')"
+                            >
+                                View
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        <!-- =================================================
+             DATABASE NOTICE
+        ================================================== -->
+
+        <div class="alert alert-info mt-4 mb-0">
+
+            <strong>
+                Frontend Demo:
+            </strong>
+
+            These users are sample data.
+
+            Later, Flask + MySQL will load the actual
+            users from the database.
+
+            <br><br>
+
+            <strong>
+                Parent Mobile Number:
+            </strong>
+
+            The parent's mobile number will be stored
+            in the database and linked to the student's
+            record.
+
+            This number will later be used for:
+
+            <ul class="mb-0 mt-2">
+
+                <li>
+                    Parent approval OTP by SMS
+                </li>
+
+                <li>
+                    Student exit notification by SMS
+                </li>
+
+                <li>
+                    Student safe-return notification by SMS
+                </li>
+
+            </ul>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+    /* =====================================================
+       SEARCH USERS
+    ===================================================== */
+
+    function searchUsers() {
+
+        filterUsers();
+
+    }
+
+
+
+    /* =====================================================
+       SEARCH + ROLE FILTER
+    ===================================================== */
+
+    function filterUsers() {
+
+
+        const searchInput =
+            document.getElementById(
+                "searchInput"
+            );
+
+
+        const roleFilter =
+            document.getElementById(
+                "roleFilter"
+            );
+
+
+        const searchText =
+            searchInput.value.toLowerCase();
+
+
+        const selectedRole =
+            roleFilter.value;
+
+
+        const table =
+            document.getElementById(
+                "userTable"
+            );
+
+
+        const rows =
+            table
+            .getElementsByTagName("tbody")[0]
+            .getElementsByTagName("tr");
+
+
+        for (
+            let i = 0;
+            i < rows.length;
+            i++
+        ) {
+
+
+            const row =
+                rows[i];
+
+
+            const text =
+                row.textContent.toLowerCase();
+
+
+            const roleCell =
+                row.cells[2];
+
+
+            const role =
+                roleCell.textContent.trim();
+
+
+            const matchesSearch =
+                text.includes(searchText);
+
+
+            const matchesRole =
+                selectedRole === "all"
+                ||
+                role === selectedRole;
+
+
+            if (
+                matchesSearch
+                &&
+                matchesRole
+            ) {
+
+                row.style.display = "";
+
+            }
+
+            else {
+
+                row.style.display = "none";
+
+            }
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+       VIEW USER
+    ===================================================== */
+
+    function viewUser(userId) {
+
+
+        alert(
+            "User ID: "
+            + userId
+            + "\n\n"
+            + "Frontend demo only.\n\n"
+            + "Later this button will open the user's "
+            + "complete database record."
+        );
+
+    }
+
+
+
+    /* =====================================================
+       ADD USER DEMO
+    ===================================================== */
+
+    function showDemoMessage() {
+
+
+        alert(
+            "Add User feature will be connected "
+            + "to the backend later."
+        );
+
+    }
+
+
+</script>
+
+
+</body>
+
+</html>
+
